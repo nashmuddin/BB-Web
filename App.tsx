@@ -5,9 +5,10 @@ import { AuthPage } from './pages/AuthPage';
 import { ClientDashboard } from './pages/ClientDashboard';
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { ContactPage } from './pages/ContactPage';
+import { Chatbot } from './components/Chatbot';
 import { authService } from './services/authService';
 import { ServiceType, ServiceInfo, User } from './types';
-import { ArrowRight, Users, Shield, Briefcase, Monitor, CheckCircle, Quote, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, Users, Shield, Briefcase, Monitor, CheckCircle, Quote, ArrowUpRight, ShoppingBag } from 'lucide-react';
 
 /* --- Inline Components for simplicity and file count constraint --- */
 
@@ -44,6 +45,14 @@ const SERVICES: ServiceInfo[] = [
     shortDesc: "Cutting-edge technology solutions for modern business.",
     fullDesc: "From custom software development to network security, our IT division empowers your business with digital tools for the future.",
     features: ["Software Development", "Cloud Infrastructure", "Cybersecurity", "Technical Support"]
+  },
+  {
+    id: ServiceType.ENTERPRISE,
+    title: "Enterprise Services",
+    iconName: "ShoppingBag",
+    shortDesc: "Wholesale and retail solutions for diverse markets.",
+    fullDesc: "Our Enterprise division specializes in wholesale distribution and retail management, bridging the gap between manufacturers and end-consumers with efficiency and scale.",
+    features: ["Wholesale Trading", "Retail Operations", "Product Sourcing", "Supply Chain Management"]
   }
 ];
 
@@ -51,7 +60,8 @@ const IconMap: Record<string, React.FC<any>> = {
   Users: Users,
   Shield: Shield,
   Briefcase: Briefcase,
-  Monitor: Monitor
+  Monitor: Monitor,
+  ShoppingBag: ShoppingBag
 };
 
 // --- HOME PAGE COMPONENT ---
@@ -70,7 +80,7 @@ const HomePage: React.FC<{ onNavigate: (p: string) => void }> = ({ onNavigate })
             <span className="text-blue-400">Excellence in Execution.</span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-slate-400 mb-10">
-            A diversified conglomerate delivering integrated solutions across employment, insurance, management, and technology sectors.
+            A diversified conglomerate delivering integrated solutions across employment, insurance, management, IT, and enterprise sectors.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button 
@@ -92,7 +102,7 @@ const HomePage: React.FC<{ onNavigate: (p: string) => void }> = ({ onNavigate })
       {/* Overview Cards */}
       <section className="bg-slate-50 py-24 relative z-20 -mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {SERVICES.map((s) => {
               const Icon = IconMap[s.iconName];
               return (
@@ -132,7 +142,7 @@ const HomePage: React.FC<{ onNavigate: (p: string) => void }> = ({ onNavigate })
               {[
                 "Integrated workflow between insurance and HR.",
                 "Tech-driven management solutions.",
-                "End-to-end employee lifecycle management."
+                "Robust wholesale and retail networks."
               ].map((item, i) => (
                 <li key={i} className="flex items-center text-slate-700 font-medium">
                   <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
@@ -174,7 +184,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onFeatureClick }) => {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Our Expertise</h2>
           <p className="text-slate-600 max-w-2xl mx-auto">
-            Deep domain knowledge across four pillars of business excellence.
+            Deep domain knowledge across five pillars of business excellence.
           </p>
         </div>
 
@@ -310,13 +320,17 @@ export default function App() {
   // Direct return for portal to ensure clean layout when logged in and active
   if (activePage === 'portal' && user) {
       return (
+        <>
           <ClientDashboard user={user} onLogout={handleLogout} initialChecklistRequest={pendingChecklist} />
+          <Chatbot />
+        </>
       );
   }
 
   return (
     <Layout activePage={activePage} onNavigate={navigateTo} user={user} onLogout={handleLogout}>
       {renderContent()}
+      <Chatbot />
     </Layout>
   );
 }

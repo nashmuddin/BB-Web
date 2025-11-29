@@ -190,6 +190,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onNavigate
               <li><button onClick={() => onNavigate('services')} className="hover:text-white transition-colors">Insurance Agency</button></li>
               <li><button onClick={() => onNavigate('services')} className="hover:text-white transition-colors">Management Services</button></li>
               <li><button onClick={() => onNavigate('services')} className="hover:text-white transition-colors">IT Solutions</button></li>
+              <li><button onClick={() => onNavigate('services')} className="hover:text-white transition-colors">Enterprise Services</button></li>
             </ul>
           </div>
           <div>

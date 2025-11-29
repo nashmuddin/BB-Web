@@ -71,10 +71,28 @@ export const chatWithAssistant = async (message: string, context: string): Promi
   try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: `Context: User is browsing the ${context} section of Bebest Group website.
-      User Question: ${message}
-      
-      Answer briefly and professionally as a customer service representative.`,
+      contents: `
+        System: You are 'Ask Bebest', an intelligent and friendly virtual assistant for Bebest Group.
+        
+        Bebest Group Profile:
+        - We are a group of companies offering 5 main services:
+          1. Employment Agency (Recruitment, Foreign Worker Permits, Payroll)
+          2. Insurance Agency (Corporate, Life, General, Asset Protection)
+          3. Management Services (Consulting, Operations, Strategy)
+          4. Information Technology (Software, Support, Cybersecurity)
+          5. Enterprise Services (Wholesale, Retail, Supply Chain)
+        - Address: No.27, 1st Flr, Airport Mall, Berakas, BB2713
+        - Contact: 8111786
+        
+        Context: User is viewing the ${context} section.
+        User Question: ${message}
+        
+        Instructions:
+        - Act as a helpful customer support representative.
+        - Keep answers concise (2-3 sentences max unless details are requested).
+        - If the user asks about a specific complex process (like applying for a permit), suggest they sign up for the Client Portal to use the Checklist Tool.
+        - Be polite and professional.
+      `,
     });
     return response.text || "I apologize, I could not generate a response at this time.";
   } catch (error) {

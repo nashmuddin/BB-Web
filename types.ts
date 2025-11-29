@@ -2,7 +2,8 @@ export enum ServiceType {
   EMPLOYMENT = 'Employment Agency',
   INSURANCE = 'Insurance Agency',
   MANAGEMENT = 'Management Services',
-  IT = 'Information Technology'
+  IT = 'Information Technology',
+  ENTERPRISE = 'Enterprise Services'
 }
 
 export interface ChecklistItem {
